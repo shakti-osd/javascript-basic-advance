@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Document Traversal</title>
+</head>
+<body>
+  <div id="root">
+    <h1>Hello, World!</h1>
+    <div>
+      <p>This is a paragraph.</p>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ul>
+    </div>
+    <p>Another paragraph.</p>
+  </div>
+
+  <script>
+    // Custom HTML Document Traversal Algorithm
+    function customTraversal(node, callback) {
+      callback(node);
+
+      node = node.firstChild;
+      while (node) {
+        customTraversal(node, callback);
+        node = node.nextSibling;
+      }
+    }
+
+    // Depth-First Search (DFS) Traversal
+    function dfsTraversal(node, callback) {
+      callback(node);
+
+      node = node.firstChild;
+      while (node) {
+        dfsTraversal(node, callback);
+        node = node.nextSibling;
+      }
+    }
+
+    // Breadth-First Search (BFS) Traversal
+    function bfsTraversal(root, callback) {
+      let queue = [root];
+
+      while (queue.length > 0) {
+        const node = queue.shift();
+        callback(node);
+
+        let child = node.firstChild;
+        while (child) {
+          queue.push(child);
+          child = child.nextSibling;
+        }
+      }
+    }
+
+    // Example Usage
+    const rootElement = document.getElementById('root');
+
+    console.log('Custom Traversal:');
+    customTraversal(rootElement, (node) => {
+      console.log(node.tagName || node.textContent.trim());
+    });
+
+    console.log('\nDFS Traversal:');
+    dfsTraversal(rootElement, (node) => {
+      console.log(node.tagName || node.textContent.trim());
+    });
+
+    console.log('\nBFS Traversal:');
+    bfsTraversal(rootElement, (node) => {
+      console.log(node.tagName || node.textContent.trim());
+    });
+  </script>
+</body>
+</html>
+
+
+
+function dfsTraversal(node, callback){
+  callback(node)
+  node= node.firstChild
+
+  while(node){
+    dfsTraversal(node, callback)
+    node = node.nextSibling
+  }
+}
